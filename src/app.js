@@ -3,11 +3,18 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import authRoutes from './modules/auth/auth.routes.js';
+
 import { errorHandler } from './middleware/error.middleware.js';
 import { authenticate } from './middleware/auth.middleware.js';
 import { allowRoles } from './middleware/role.middleware.js';
+
+
+import authRoutes from './modules/auth/auth.routes.js';
 import recordRoutes from './modules/record/record.routes.js';
+import dashboardRoutes from './modules/dashboard/dashboard.routes.js';
+import { apiLimiter, authLimiter } from './middleware/rateLimit.middleware.js';
+
+
 dotenv.config();
 
 const app = express();
@@ -17,11 +24,17 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
-
-// Middlewares
-app.use('/api/v1/auth', authRoutes);
 app.use(errorHandler);
+
+
+// Routes
+// app.use('/api', apiLimiter);
+// app.use('/api/v1/auth', authLimiter);
+app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/records', recordRoutes);
+app.use('/api/v1/dashboard', dashboardRoutes);
+
+
 
 // Health check
 app.get('/health', (req, res) => {

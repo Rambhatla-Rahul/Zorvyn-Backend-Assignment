@@ -6,11 +6,12 @@ import { validate } from '../../middleware/validate.middleware.js';
 import {
   createRecordSchema,
   updateRecordSchema,
+  recordIdParamSchema,
+  userIdParamSchema,
 } from './record.validation.js';
 
 const router = express.Router();
 
-// Create → ADMIN only
 router.post(
   '/',
   authenticate,
@@ -19,7 +20,6 @@ router.post(
   controller.create
 );
 
-// Read → ALL roles
 router.get(
   '/',
   authenticate,
@@ -27,20 +27,36 @@ router.get(
   controller.getAll
 );
 
-// Update → ADMIN only
+router.get(
+  '/user/:userId',
+  authenticate,
+  allowRoles('ANALYST', 'ADMIN'),
+  validate(userIdParamSchema, 'params'),
+  controller.getAll
+);
+
+router.get(
+  '/:id',
+  authenticate,
+  allowRoles('ANALYST', 'ADMIN'),
+  validate(recordIdParamSchema, 'params'),
+  controller.getOne
+);
+
 router.put(
   '/:id',
   authenticate,
   allowRoles('ADMIN'),
+  validate(recordIdParamSchema, 'params'),
   validate(updateRecordSchema),
   controller.update
 );
 
-// Delete → ADMIN only (soft delete)
 router.delete(
   '/:id',
   authenticate,
   allowRoles('ADMIN'),
+  validate(recordIdParamSchema, 'params'),
   controller.remove
 );
 

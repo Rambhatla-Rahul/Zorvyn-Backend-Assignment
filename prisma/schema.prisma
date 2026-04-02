@@ -32,9 +32,11 @@ model Record {
   userId    String
 
   amount    Float
-  type      String
+  type      String   
   category  String
-  date      DateTime
+
+  date      DateTime 
+
   notes     String?
 
   isDeleted Boolean  @default(false)

@@ -9,7 +9,9 @@ export const registerUser = async ({ email, password }) => {
   });
 
   if (existing) {
-    throw new Error('User already exists');
+    const err = new Error('User already exists');
+    err.statusCode = 409;
+    throw err;
   }
 
   const hashedPassword = await hashPassword(password);
@@ -41,17 +43,23 @@ export const loginUser = async ({ email, password }) => {
   });
 
   if (!user || !user.password) {
-    throw new Error('Invalid credentials');
+    const err = new Error('Invalid credentials');
+    err.statusCode = 401;
+    throw err;
   }
 
   if (!user.isActive) {
-    throw new Error('User is inactive');
+    const err = new Error('Unauthorized');
+    err.statusCode = 401;
+    throw err;
   }
 
   const isMatch = await comparePassword(password, user.password);
 
   if (!isMatch) {
-    throw new Error('Invalid credentials');
+    const err = new Error('Invalid credentials');
+    err.statusCode = 401;
+    throw err;
   }
 
   const token = generateToken({
