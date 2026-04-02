@@ -28,8 +28,8 @@ app.use(errorHandler);
 
 
 // Routes
-// app.use('/api', apiLimiter);
-// app.use('/api/v1/auth', authLimiter);
+app.use('/api', apiLimiter);
+app.use('/api/v1/auth', authLimiter);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/records', recordRoutes);
 app.use('/api/v1/dashboard', dashboardRoutes);
