@@ -176,7 +176,9 @@ Centralized error middleware provides:
 
 ### Auth
 POST /api/v1/auth/register
+
 POST /api/v1/auth/login
+
 GET /api/v1/auth/google
 
 
@@ -185,11 +187,15 @@ GET /api/v1/auth/google
 
 ### Records
 GET /api/v1/records
+
 GET /api/v1/records/:id
+
 GET /api/v1/records/user/:userId
 
 POST /api/v1/records
+
 PUT /api/v1/records/:id
+
 DELETE /api/v1/records/:id
 
 
@@ -247,7 +253,9 @@ npm install
 ### 2. Configure environment
 
 Create `.env`:
+
 DATABASE_URL=postgresql://user:password@localhost:5432/db
+
 JWT_SECRET=your_secret
 
 
