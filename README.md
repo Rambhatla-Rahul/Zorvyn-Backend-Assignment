@@ -197,12 +197,17 @@ DELETE /api/v1/records/:id
 
 ### Dashboard
 GET /api/v1/dashboard/summary
+
 GET /api/v1/dashboard/categories
+
 GET /api/v1/dashboard/trends
 
 GET /api/v1/dashboard/user/:userId/summary
+
 GET /api/v1/dashboard/user/:userId/categories
+
 GET /api/v1/dashboard/user/:userId/trends
+
 GET /api/v1/dashboard/user/:userId/recent
 
 
